@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
@@ -25,10 +27,30 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+    <!-- Bootstrap -->
+    <link href="%PUBLIC_URL%/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="%PUBLIC_URL%/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="%PUBLIC_URL%/assets/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="%PUBLIC_URL%/assets/iCheck/skins/flat/green.css" rel="stylesheet">
+	
+    <!-- bootstrap-progressbar -->
+    <link href="%PUBLIC_URL%/assets/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="%PUBLIC_URL%/assets/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link href="%PUBLIC_URL%/assets/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="%PUBLIC_URL%/css/custom.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="%PUBLIC_URL%/css/newcus.css"> -->
+    <!-- <link rel="stylesheet" href="%PUBLIC_URL%/css/cus.sass"> -->
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div class="nav-md" id="root"></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -39,5 +61,61 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <!-- jQuery -->
+    <script src="%PUBLIC_URL%/assets/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="%PUBLIC_URL%/assets/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FastClick -->
+    <script src="%PUBLIC_URL%/assets/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="%PUBLIC_URL%/assets/nprogress/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="%PUBLIC_URL%/assets/Chart.js/dist/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="%PUBLIC_URL%/assets/gauge.js/dist/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="%PUBLIC_URL%/assets/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="%PUBLIC_URL%/assets/iCheck/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="%PUBLIC_URL%/assets/skycons/skycons.js"></script>
+    <!-- Flot -->
+    <script src="%PUBLIC_URL%/assets/Flot/jquery.flot.js"></script>
+    <script src="%PUBLIC_URL%/assets/Flot/jquery.flot.pie.js"></script>
+    <script src="%PUBLIC_URL%/assets/Flot/jquery.flot.time.js"></script>
+    <script src="%PUBLIC_URL%/assets/Flot/jquery.flot.stack.js"></script>
+    <script src="%PUBLIC_URL%/assets/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="%PUBLIC_URL%/assets/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="%PUBLIC_URL%/assets/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="%PUBLIC_URL%/assets/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="%PUBLIC_URL%/assets/DateJS/build/date.js"></script>
+    <!-- JQVMap -->
+    <script src="%PUBLIC_URL%/assets/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="%PUBLIC_URL%/assets/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="%PUBLIC_URL%/assets/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="%PUBLIC_URL%/assets/moment/min/moment.min.js"></script>
+    <script src="%PUBLIC_URL%/assets/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- Datatables -->
+    <script src="%PUBLIC_URL%/assets/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="%PUBLIC_URL%/assets/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="%PUBLIC_URL%/assets/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="%PUBLIC_URL%/assets/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="%PUBLIC_URL%/assets/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="%PUBLIC_URL%/assets/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="%PUBLIC_URL%/assets/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="%PUBLIC_URL%/assets/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="%PUBLIC_URL%/assets/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="%PUBLIC_URL%/assets/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="%PUBLIC_URL%/assets/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="%PUBLIC_URL%/assets/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="%PUBLIC_URL%/assets/jszip/dist/jszip.min.js"></script>
+    <script src="%PUBLIC_URL%/assets/pdfmake/build/pdfmake.min.js"></script>
+    <script src="%PUBLIC_URL%/assets/pdfmake/build/vfs_fonts.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="%PUBLIC_URL%/js/custom.min.js"></script>
   </body>
 </html>

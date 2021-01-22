@@ -1,0 +1,8 @@
+footer > div {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  footer > div {
+    font-size: 1.2rem;
+  }
