@@ -103,6 +103,7 @@ export default class FormAddQuestion extends Component {
             wrong_answer: this.state.wrong_answer,
             vocabulary_id: this.state.vocabulary_id
         }
+        console.log(data)
         if (this.state.id != '') data.id = this.state.id
         console.log(this.state)
 

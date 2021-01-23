@@ -151,7 +151,7 @@ export default class QuestionDataTable extends Component {
                     <td>{val.question}</td>
                     <td>{val.correct_answer}</td>
                     <td>{val.wrong_answer}</td>
-                    <td>{val.vocabulary_id.id}</td>
+                    <td>{val.vocabulary_id}</td>
                     <td>{val.createdAt}</td>
                     <td>
                       <Link to={'edit/' + val.id} className="btn btn-success" title="Update">Update</Link>

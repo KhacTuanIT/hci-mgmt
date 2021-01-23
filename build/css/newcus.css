@@ -1,0 +1,219 @@
+.img-logo {
+    width: 40px;
+    height: 40px;
+}
+
+.top-title {
+    padding: 15px 0 10px 0;
+    background-color: aliceblue;
+    box-shadow: 0 2px 4px #999999;
+}
+
+.top-title a {
+    color: #258dfd;
+}
+
+.top-title a:hover {
+    color: #007BFF;
+    text-decoration: underline;
+}
+
+.none-padding {
+    padding: 0;
+}
+
+.none-margin {
+    margin: 0;
+}
+
+.menu_section h3 {
+    padding-left: 10px;
+    font-size: 15px;
+}
+
+.nav-sm .nav.side-menu li a {
+    font-size: 12px;
+}
+
+.nav-sm .container.body .right_col {
+    margin-left: 90px;
+}
+
+.nav-sm .container.body .col-md-3.left_col {
+    width: 90px;
+}
+
+.nav-sm .main_container .top_nav {
+    margin-left: 90px;
+}
+
+.tile_count {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tile_count .tile_stats_count {
+    border-radius: 4px;
+    border-left: 1px solid slategrey;
+    border-bottom: 1px solid slategrey;
+    box-shadow: -2px 2px 4px #999999;
+    /* margin: auto 10px; */
+    padding: 15px 0;
+    justify-items: center;
+    text-align: center;
+    color: #3f3f3f;
+}
+
+.tile_count .tile_stats_count:nth-child(1) {
+    background-color: azure;
+}
+
+.tile_count .tile_stats_count:nth-child(2) {
+    background-color: sandybrown;
+}
+
+.tile_count .tile_stats_count:nth-child(3) {
+    background-color: lightseagreen;
+}
+
+.tile_count .tile_stats_count:nth-child(4) {
+    background-color: darkgray;
+}
+
+.tile_count .tile_stats_count:nth-child(5) {
+    background-color: lightblue;
+}
+
+.x_panel {
+    border-radius: 4px;
+    box-shadow: -2px 2px 4px #999999;
+}
+
+.dropdown-menu a {
+    font-size: 1.05rem;
+}
+
+a.user-profile {
+    font-size: 1.05rem;
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+    color: #fff;
+    background-color: rgba(0, 229, 255, .5);
+}
+
+.navbar-nav .open .dropdown-menu {
+    width: 300px;
+    box-shadow: -2px 2px 4px #999999;
+}
+
+.green {
+    color: darkgreen;
+}
+
+footer > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+footer > div {
+    font-size: 1.2rem;
+}
+
+.tile_count .tile_stats_count span {
+    font-size: 1.1rem;
+}
+
+.w_80 {
+    width: 80%;
+}
+
+.widget_summary {
+    margin: 10px auto;
+    padding: 10px 5px;
+    box-shadow: -2px 2px 4px #999999;
+}
+
+.widget_summary .w_left span {
+    font-size: 1.1rem;
+    line-height: 25px;
+}
+
+.x_title h2 {
+    font-size: 1.8rem;
+}
+
+.panel_toolbox {
+    min-width: 0;
+}
+
+.fixed_height_420 {
+    height: 420px;
+}
+
+.dataTables_filter label {
+    display: block;
+}
+
+.btn {
+    box-shadow: -2px 2px 4px #999999;
+}
+
+.table {
+    font-size: 1.1rem;
+}
+
+.table tbody tr td:nth-child(1) {
+    font-weight: 700;
+    text-align: center;
+}
+
+.table tbody tr td {
+    vertical-align: middle;
+}
+
+.form-control {
+    border-radius: 3px;
+    box-shadow: -1px 1px 2px #999999;
+}
+
+.button-submit-group {
+    text-align: end;
+}
+
+.show-image {
+    width: 0px;
+    /* height: 100%; */
+    border: none;
+    /* margin-left: 20px; */
+    background: none;
+    display: inline-block;
+}
+
+.x_content {
+    font-size: 1.05rem;
+}
+
+.fixed-height-600 {
+    height: 600px;
+}
+
+.fixed-height-600 .bottom-form {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.fixed-height-600 .content-form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.form-horizontal .form-group {
+    margin: 10px 0;
+}
+
+select.form-control[multiple], select.form-control[size] {
+    height: 120px;
+}
