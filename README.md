@@ -3,7 +3,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Access management app
-email account: admin@example.com
+email account: admin@example.com \
 password: admin123
 
 ## Available Scripts
