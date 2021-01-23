@@ -4,46 +4,20 @@ import * as API from '../../constants/Config'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default class FormAddVocabulary extends Component {
+export default class FormAddCustomer extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            topics: [],
-            word: '',
-            image: '',
-            chooseTopics: [],
-            example: '',
-            mean: '',
-            pronunciation: '',
-            exampleMean: '',
+            name: '',
+            email: '',
+            phone: '',
+            adress: '',
+            gender: '',
             id: ''
         }
     }
 
     prepareData = async () => {
-        const headers = {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-        }
-
-        try {
-            const response = await axios({
-                method: 'GET',
-                url: `${API.API_URL}Topics`,
-                headers
-            })
-
-            if (response.status === 201 || response.status === 200) {
-                this.setState({
-                    topics: response.data
-                })
-            } else {
-
-            }
-        } catch (error) {
-            console.log(error)
-        }
-
         const url = window.location.href
         console.log(url)
         if (url.includes('edit')) {
@@ -58,19 +32,13 @@ export default class FormAddVocabulary extends Component {
             try {
                 const response = await axios({
                     method: 'GET',
-                    url: `${API.API_URL}Vocabularies/${id}`,
+                    url: `${API.API_URL_2}users/${id}`,
                     headers
                 })
     
                 if (response.status === 201 || response.status === 200) {
                     this.setState({
-                        word: response.data.word,
-                        mean: response.data.mean,
-                        example: response.data.example,
-                        exampleMean: response.data.example_mean,
-                        pronunciation: response.data.pronunciation,
-                        image: response.data.image,
-                        chooseTopics: response.data.topic,
+                        name: response.data.name,
                         id: response.data.id
                     })
                 }
@@ -104,13 +72,11 @@ export default class FormAddVocabulary extends Component {
         
 
         const data = {
-            word: this.state.word,
-            mean: this.state.mean,
-            example: this.state.example,
-            example_mean: this.state.exampleMean,
-            pronunciation: this.state.pronunciation,
-            topics: this.state.chooseTopics,
-            image: this.state.image
+            name: this.state.name,
+            email: this.state.email,
+            phone: this.state.phone,
+            adress: this.state.adress,
+            gender: this.state.gender
         }
         if (this.state.id !== '') data.id = this.state.id
         console.log(this.state)
@@ -118,7 +84,7 @@ export default class FormAddVocabulary extends Component {
         try {
             axios({
                 method: this.state.id !== '' ? 'PUT' : 'POST',
-                url: this.state.id !== '' ? `${API.API_URL}Vocabularies/${this.state.id}` : `${API.API_URL}Vocabularies`,
+                url: this.state.id !== '' ? `${API.API_URL_2}users/${this.state.id}` : `${API.API_URL_2}users`,
                 headers,
                 data
             }).then(response => {
@@ -135,117 +101,84 @@ export default class FormAddVocabulary extends Component {
     }
 
     render() {
-        const { topics } = this.state
         
         return (
             <div>
                 <ToastContainer />
                 <form>
                     <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">Word</label>
+                        <label className="col-sm-2 col-form-label">Customer name</label>
                         <div className="col-sm-10">
                             <input
                                 type="text"
                                 className="form-control"
                                 id="inputPassword"
-                                placeholder="Word"
+                                placeholder="Name"
                                 required
-                                name="word"
-                                value={this.state.word}
+                                name="name"
+                                value={this.state.name}
                                 onChange={this.handleText}
                             />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">Mean</label>
+                        <label className="col-sm-2 col-form-label">Email</label>
                         <div className="col-sm-10">
                             <input
                                 type="text"
                                 className="form-control"
                                 id="inputPassword"
-                                placeholder="Mean"
+                                placeholder="Email"
                                 required
-                                name="mean"
-                                value={this.state.mean}
+                                name="email"
+                                value={this.state.email}
                                 onChange={this.handleText}
                             />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">Example</label>
+                        <label className="col-sm-2 col-form-label">Phone number</label>
                         <div className="col-sm-10">
                             <input
                                 type="text"
                                 className="form-control"
                                 id="inputPassword"
-                                placeholder="Example"
+                                placeholder="Phone number"
                                 required
-                                name="example"
-                                value={this.state.example}
+                                name="phone"
+                                value={this.state.phone}
                                 onChange={this.handleText}
                             />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">Example Mean</label>
+                        <label className="col-sm-2 col-form-label">Address</label>
                         <div className="col-sm-10">
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Example mean"
+                                id="inputPassword"
+                                placeholder="Address"
                                 required
-                                name="exampleMean"
-                                value={this.state.exampleMean}
+                                name="adress"
+                                value={this.state.adress}
                                 onChange={this.handleText}
                             />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">Pronouciation</label>
+                        <label className="col-sm-2 col-form-label">Gender</label>
                         <div className="col-sm-10">
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Pronounciation"
+                                id="inputPassword"
+                                placeholder="Gender"
                                 required
-                                name="pronunciation"
-                                value={this.state.pronunciation}
+                                name="gender"
+                                value={this.state.gender}
                                 onChange={this.handleText}
                             />
-
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <label for="exampleFormControlSelect2" className="col-sm-2 col-form-label">Topics</label>
-                        <div className="col-sm-10">
-                            <select class="form-control" id="exampleFormControlSelect2"
-                                name="chooseTopics"
-                                select={this.state.chooseTopics ? this.state.chooseTopics : 0}
-                                onChange={this.handleText}
-                            >
-                                {topics !== null &&
-                                    topics.map((topic, index) => {
-                                        return (
-                                            <option key={index} value={topic.id}>{topic.name}</option>
-                                        )
-                                    })
-                                }
-                            </select>
-                        </div>
-
-                    </div>
-                    <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">Image</label>
-                        <div className="custom-file col-sm-10">
-                            <input
-                                type="file"
-                                className="custom-file-input form-control"
-                                id="validatedCustomFile"
-                                name="image"
-                                onChange={this.handleText}
-                            />
-                            <label className="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                            <div className="invalid-feedback">Example invalid custom file feedback</div>
                         </div>
                     </div>
                     <div className="form-group row">
@@ -256,7 +189,7 @@ export default class FormAddVocabulary extends Component {
                                 className="btn btn-primary mb-2"
                                 onClick={this.onSubmit}
                             >
-                                {this.state.id === '' ? 'Create New Vocabulary' : 'Update Vocabulary'}
+                                {this.state.id === '' ? 'Create New Customer' : 'Update Customer information'}
                                 
                         </button>
                         </div>

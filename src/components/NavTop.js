@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import userAvatar from '../utils/images/img.jpg'
+import axios from 'axios'
+import * as API from '../constants/Config'
 
 const profileMenus = [
     {
@@ -30,6 +32,43 @@ const profileMenus = [
 ]
 
 export class NavTop extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            username: '',
+            id: ''
+        }
+    }
+
+    prepareData = async () => {
+        const headers = {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        }
+
+        const id = localStorage.getItem('token')
+        try {
+            const response = await axios({
+                method: 'GET',
+                url: `${API.API_URL_2}admins/${id}`,
+                headers
+            })
+            console.log(response)
+            if (response.status === 200) {
+                this.setState({
+                    username: response.data.name,
+                    id: response.status.id
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    componentDidMount() {
+        this.prepareData()
+    }
+
     render() {
         return (
             <div className="top_nav">
@@ -38,22 +77,22 @@ export class NavTop extends Component {
                         <a id="menu_toggle"><i className="fa fa-bars"></i></a>
                     </div>
                     <nav className="nav navbar-nav">
-                    <ul className=" navbar-right">
-                        <li className="nav-item dropdown open" style={{paddingLeft: '15px'}}>
-                            <a className="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                                <img src={userAvatar} alt="" />John Doe
-                            </a>
-                            <div className="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                                {this.showProfileMenu(profileMenus)}
-                            </div>
-                        </li>
-                    </ul>
+                        <ul className=" navbar-right">
+                            <li className="nav-item dropdown open" style={{ paddingLeft: '15px' }}>
+                                <a className="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                                    <img src={userAvatar} alt="" />{this.state.username}
+                                </a>
+                                <div className="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                                    {this.showProfileMenu(profileMenus)}
+                                </div>
+                            </li>
+                        </ul>
                     </nav>
                 </div>
             </div>
         )
     }
-    
+
     showProfileMenu = (menus) => {
         var result = null;
         if (menus.length > 0) {
@@ -61,13 +100,13 @@ export class NavTop extends Component {
                 if (menu.icon !== "") {
                     if (menu.type === "badge") {
                         return (
-                            <Link to={menu.to} className="dropdown-item">
+                            <Link key={index} to={menu.to} className="dropdown-item">
                                 <span className={menu.icon}>50%</span>
                                 <span>{menu.name}</span>
                             </Link>
                         )
                     } else if (menu.type === "fa") {
-                        return (<Link to={menu.to} className="dropdown-item">
+                        return (<Link key={index} to={menu.to} className="dropdown-item">
                             <i className={menu.icon} />
                             {menu.name}
                         </Link>)
@@ -75,7 +114,7 @@ export class NavTop extends Component {
                 }
                 else {
                     return (
-                        <Link to={menu.to} className="dropdown-item">{menu.name}</Link>
+                        <Link key={index} to={menu.to} className="dropdown-item">{menu.name}</Link>
                     )
                 }
             })

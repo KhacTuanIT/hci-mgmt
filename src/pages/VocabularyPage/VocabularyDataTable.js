@@ -1,4 +1,3 @@
-import { MDBCard, MDBCardBody, MDBCardHeader, MDBDataTableV5 } from 'mdbreact'
 import React, { Component } from 'react'
 import axios from 'axios'
 import * as API from '../../constants/Config'

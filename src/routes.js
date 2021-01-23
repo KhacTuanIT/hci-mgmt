@@ -22,112 +22,112 @@ const routes = [
     {
         path:"/",
         exact: true,
-        main: () => <DashboardPage/>
+        main: (match) => <DashboardPage/>
     },
     {
         path:"/packages/list",
         exact: true,
-        main: () => <PackagePage/>
+        main: (match) => <PackagePage/>
     },
     {
         path:"/packages/add",
         exact: true,
-        main: () => <AddPackagePage/>
+        main: (match) => <AddPackagePage/>
     },
     {
         path:"/packages/edit/:id",
         exact: true,
-        main: () => <AddPackagePage/>
+        main: (match) => <AddPackagePage/>
     },
     {
         path:"/questions/list",
         exact: true,
-        main: () => <QuestionPage/>
+        main: (match) => <QuestionPage/>
     },
     {
         path:"/questions/add",
         exact: true,
-        main: () => <AddQuestionPage/>
+        main: (match) => <AddQuestionPage/>
     },
     {
         path:"/questions/edit/:id",
         exact: true,
-        main: () => <AddQuestionPage/>
+        main: (match) => <AddQuestionPage/>
     },
     {
         path:"/topics/list",
         exact: true,
-        main: () => <TopicPage/>
+        main: (match) => <TopicPage/>
     },
     {
         path:"/topics/add",
         exact: true,
-        main: () => <AddTopicPage/>
+        main: (match) => <AddTopicPage/>
     },
     {
         path:"/topics/edit/:id",
         exact: true,
-        main: () => <AddTopicPage/>
+        main: (match) => <AddTopicPage/>
     },
     {
         path:"/vocabularies/list",
         exact: true,
-        main: () => <VocabularyPage/>
+        main: (match) => <VocabularyPage/>
     },
     {
         path:"/vocabularies/add",
         exact: true,
-        main: () => <AddVocabularyPage/>
+        main: (match) => <AddVocabularyPage/>
     },
     {
         path:"/vocabularies/edit/:id",
         exact: true,
-        main: () => <AddVocabularyPage/>
+        main: (match) => <AddVocabularyPage/>
     },
     {
         path:"/customers/list",
         exact: true,
-        main: () => <CustomerPage/>
+        main: (match) => <CustomerPage/>
     },
     {
         path:"/customers/add",
         exact: true,
-        main: () => <AddCustomerPage/>
+        main: (match) => <AddCustomerPage/>
     },
     {
         path:"/administrators/list",
         exact: true,
-        main: () => <AdministratorPage/>
+        main: (match) => <AdministratorPage/>
     },
     {
         path:"/administrators/add",
         exact: true,
-        main: () => <AddAdministratorPage/>
+        main: (match) => <AddAdministratorPage/>
     },
     {
         path:"/user/profile",
         exact: true,
-        main: () => <ProfilePage/>
+        main: (match) => <ProfilePage/>
     },
     {
         path:"/user/settings",
         exact: true,
-        main: () => <SettingPage/>
+        main: (match) => <SettingPage/>
     },
     {
         path:"/user/help",
         exact: true,
-        main: () => <HelpPage/>
+        main: (match) => <HelpPage/>
     },
     {
         path:"/login",
         exact: true,
-        main: () => <LoginPage/>
+        main: (match) => <LoginPage/>
     },
     {
         path:"/registry",
         exact: true,
-        main: () => <RegistryPage/>
+        main: (match) => <RegistryPage/>
     },
 ]
 

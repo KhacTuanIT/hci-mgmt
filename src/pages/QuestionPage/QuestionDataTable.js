@@ -1,4 +1,3 @@
-import { MDBCard, MDBCardBody, MDBCardHeader, MDBDataTableV5 } from 'mdbreact'
 import React, { Component } from 'react'
 import axios from 'axios'
 import * as API from '../../constants/Config'
@@ -9,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default class QuestionDataTable extends Component {
   constructor(props) {
     super(props)
-    this.state={
+    this.state = {
       data: {
         columns: [
           {
@@ -28,24 +27,24 @@ export default class QuestionDataTable extends Component {
         rows: [
         ]
       },
-      
+
     }
   }
-  
+
   timeConverter = (UNIX_timestamp) => {
-      var a = new Date(UNIX_timestamp * 1000);
-      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-      var year = a.getFullYear();
-      var month = months[a.getMonth()];
-      var date = a.getDate();
-      var hour = a.getHours();
-      var min = a.getMinutes();
-      var sec = a.getSeconds();
-      var time = date + '-' + month + '-' + year + ' ' + hour + ':' + min + ':' + sec ;
-      return time;
+    var a = new Date(UNIX_timestamp * 1000);
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var sec = a.getSeconds();
+    var time = date + '-' + month + '-' + year + ' ' + hour + ':' + min + ':' + sec;
+    return time;
   }
 
-  prepareData = async() => {
+  prepareData = async () => {
     const headers = {
       Accept: 'application/json',
       'Content-Type': 'application/json'
@@ -88,34 +87,34 @@ export default class QuestionDataTable extends Component {
 
   onDelete = (id) => {
     const headers = {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
     }
 
     try {
-        axios({
-            method: 'DELETE',
-            url: `${API.API_URL}Questions/${id}`,
-            headers
-        }).then(response => {
-            if (response.status === 201 || response.status === 200) {
-                toast("Delete successfully !");
-                this.prepareData()
-            } else {
-                toast("Delete fail !");
-            }
-        })
+      axios({
+        method: 'DELETE',
+        url: `${API.API_URL}Questions/${id}`,
+        headers
+      }).then(response => {
+        if (response.status === 201 || response.status === 200) {
+          toast("Delete successfully !");
+          this.prepareData()
+        } else {
+          toast("Delete fail !");
+        }
+      })
 
     } catch (error) {
-        console.log(error)
+      console.log(error)
     }
   }
 
   render() {
-    const {data} = this.state
+    const { data } = this.state
     return (
       <div>
-      <ToastContainer />
+        <ToastContainer />
         <table className="table table-striped table-bordered">
           <thead>
             <tr>
@@ -138,12 +137,12 @@ export default class QuestionDataTable extends Component {
                 Created At
               </th>
               <th scope="col">
-                
+
               </th>
             </tr>
           </thead>
           <tbody>
-            {data !== null && 
+            {data !== null &&
               data.rows.map((val, index) => {
                 return (
                   <tr key={index}>
@@ -162,7 +161,7 @@ export default class QuestionDataTable extends Component {
               })}
           </tbody>
         </table>
-        </div>
+      </div>
     )
   }
 }

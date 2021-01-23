@@ -1,0 +1,9 @@
+.wrapper_page_login {
+    background-color: #fff;
+    width: 100vw;
+    height: 90vh;
+}
+.form-control {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

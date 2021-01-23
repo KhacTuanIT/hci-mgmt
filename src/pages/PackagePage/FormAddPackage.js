@@ -70,20 +70,20 @@ export default class FormAddPackage extends Component {
         const data = {
             name: this.state.name
         }
-        if (this.state.id != '') data.id = this.state.id
+        if (this.state.id !== '') data.id = this.state.id
         console.log(this.state)
 
         try {
             axios({
-                method: this.state.id != '' ? 'PUT' : 'POST',
-                url: this.state.id != '' ? `${API.API_URL}Packages/${this.state.id}` : `${API.API_URL}Packages`,
+                method: this.state.id !== '' ? 'PUT' : 'POST',
+                url: this.state.id !== '' ? `${API.API_URL}Packages/${this.state.id}` : `${API.API_URL}Packages`,
                 headers,
                 data
             }).then(response => {
                 if (response.status === 201 || response.status === 200) {
-                    toast(this.state.id != '' ? "Update successfully !" : "Create successfully !");
+                    toast(this.state.id !== '' ? "Update successfully !" : "Create successfully !");
                 } else {
-                    toast(this.state.id != '' ? "Update fail !" : "Create fail !");
+                    toast(this.state.id !== '' ? "Update fail !" : "Create fail !");
                 }
             })
 

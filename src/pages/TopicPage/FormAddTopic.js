@@ -101,20 +101,20 @@ export default class FormAddTopic extends Component {
             image: this.state.image,
             packages: this.state.choosePackage
         }
-        if (this.state.id != '') data.id = this.state.id
+        if (this.state.id !== '') data.id = this.state.id
         console.log(this.state)
 
         try {
             axios({
-                method: this.state.id != '' ? 'PUT' : 'POST',
-                url: this.state.id != '' ? `${API.API_URL}Topics/${this.state.id}` : `${API.API_URL}Topics`,
+                method: this.state.id !== '' ? 'PUT' : 'POST',
+                url: this.state.id !== '' ? `${API.API_URL}Topics/${this.state.id}` : `${API.API_URL}Topics`,
                 headers,
                 data
             }).then(response => {
                 if (response.status === 201 || response.status === 200) {
-                    toast(this.state.id != '' ? "Update successfully !" : "Create successfully !");
+                    toast(this.state.id !== '' ? "Update successfully !" : "Create successfully !");
                 } else {
-                    toast(this.state.id != '' ? "Update fail !" : "Create fail !");
+                    toast(this.state.id !== '' ? "Update fail !" : "Create fail !");
                 }
             })
 

@@ -104,20 +104,20 @@ export default class FormAddQuestion extends Component {
             vocabulary_id: this.state.vocabulary_id
         }
         console.log(data)
-        if (this.state.id != '') data.id = this.state.id
+        if (this.state.id !== '') data.id = this.state.id
         console.log(this.state)
 
         try {
             axios({
-                method: this.state.id != '' ? 'PUT' : 'POST',
-                url: this.state.id != '' ? `${API.API_URL}Questions/${this.state.id}` : `${API.API_URL}Questions`,
+                method: this.state.id !== '' ? 'PUT' : 'POST',
+                url: this.state.id !== '' ? `${API.API_URL}Questions/${this.state.id}` : `${API.API_URL}Questions`,
                 headers,
                 data
             }).then(response => {
                 if (response.status === 201 || response.status === 200) {
-                    toast(this.state.id != '' ? "Update successfully !" : "Create successfully !");
+                    toast(this.state.id !== '' ? "Update successfully !" : "Create successfully !");
                 } else {
-                    toast(this.state.id != '' ? "Update fail !" : "Create fail !");
+                    toast(this.state.id !== '' ? "Update fail !" : "Create fail !");
                 }
             })
 
