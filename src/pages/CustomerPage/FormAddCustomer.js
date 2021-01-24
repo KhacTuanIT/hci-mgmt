@@ -13,7 +13,21 @@ export default class FormAddCustomer extends Component {
             phone: '',
             adress: '',
             gender: '',
-            id: ''
+            id: '',
+            error: {
+                name: false,
+                email: false,
+                phone: false,
+                adress: false,
+                gender: false
+            },
+            errorMessage: {
+                name: '',
+                email: '',
+                phone: '',
+                adress: '',
+                gender: ''
+            }
         }
     }
 
@@ -70,34 +84,94 @@ export default class FormAddCustomer extends Component {
             'Content-Type': 'application/json'
         }
         
+        if (this.state.name !== '' && this.state.email !== '' && this.state.phone !== '' && this.state.adress !== '' && this.state.gender !== '') {
+            const data = {
+                name: this.state.name,
+                email: this.state.email,
+                phone: this.state.phone,
+                adress: this.state.adress,
+                gender: this.state.gender
+            }
+            if (this.state.id !== '') data.id = this.state.id
+            console.log(this.state)
 
-        const data = {
-            name: this.state.name,
-            email: this.state.email,
-            phone: this.state.phone,
-            adress: this.state.adress,
-            gender: this.state.gender
+            try {
+                axios({
+                    method: this.state.id !== '' ? 'PUT' : 'POST',
+                    url: this.state.id !== '' ? `${API.API_URL_2}users/${this.state.id}` : `${API.API_URL_2}users`,
+                    headers,
+                    data
+                }).then(response => {
+                    if (response.status === 201 || response.status === 200) {
+                        toast(this.state.id !== '' ? "Update successfully !" : "Create successfully !");
+                    } else {
+                        toast(this.state.id !== '' ? "Update fail !" : "Create fail !");
+                    }
+                })
+
+            } catch (error) {
+                console.log(error)
+            }
         }
-        if (this.state.id !== '') data.id = this.state.id
-        console.log(this.state)
-
-        try {
-            axios({
-                method: this.state.id !== '' ? 'PUT' : 'POST',
-                url: this.state.id !== '' ? `${API.API_URL_2}users/${this.state.id}` : `${API.API_URL_2}users`,
-                headers,
-                data
-            }).then(response => {
-                if (response.status === 201 || response.status === 200) {
-                    toast(this.state.id !== '' ? "Update successfully !" : "Create successfully !");
-                } else {
-                    toast(this.state.id !== '' ? "Update fail !" : "Create fail !");
+        else {
+            let n = false
+            let e = false
+            let p = false
+            let a = false
+            let g = false
+            if (this.state.name === '') {
+                n = true
+            }
+            if (this.state.email === '') {
+                e = true
+            }
+            if (this.state.phone === '') {
+                p = true
+            }
+            if (this.state.adress === '') {
+                a = true
+            }
+            if (this.state.gender === '') {
+                g = true
+            }
+            this.setState({
+                error: {
+                    name: n,
+                    phone: p,
+                    email: e,
+                    gender: g,
+                    adress: a
+                },
+                errorMessage: {
+                    name: n ? 'Name field is required!' : '',
+                    phone: p ? 'phone field is required!' : '',
+                    email: e ? 'Email field is required!' : '',
+                    gender: g ? 'Gender field is required!' : '',
+                    adress: a ? 'Address field is required!' : ''
                 }
             })
-
-        } catch (error) {
-            console.log(error)
+            
+            setTimeout(() => this.resetAllError(), 3000)
         }
+    }
+
+    resetAllError = () => {
+        this.setState({
+            error: {
+                name: false,
+                email: false,
+                phone: false,
+                adress: false,
+                gender: false
+            },
+            errorMessage: {
+                name: '',
+                email: '',
+                phone: '',
+                adress: '',
+                gender: ''
+            }
+        })
     }
 
     render() {
@@ -105,13 +179,15 @@ export default class FormAddCustomer extends Component {
         return (
             <div>
                 <ToastContainer />
-                <form>
+                <form
+                    class={!this.state.error.name || !this.state.error.email || !this.state.error.phone || !this.state.error.adress || !this.state.error.gender  ? null : "was-validated"}
+                >
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label">Customer name</label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10 input-group">
                             <input
                                 type="text"
-                                className="form-control"
+                                className={!this.state.error.name ? "form-control" : "form-control is-invalid"}
                                 id="inputPassword"
                                 placeholder="Name"
                                 required
@@ -119,14 +195,15 @@ export default class FormAddCustomer extends Component {
                                 value={this.state.name}
                                 onChange={this.handleText}
                             />
+                            <div class="invalid-feedback">{this.state.errorMessage.name}</div>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label">Email</label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10 input-group">
                             <input
                                 type="text"
-                                className="form-control"
+                                className={!this.state.error.email ? "form-control" : "form-control is-invalid"}
                                 id="inputPassword"
                                 placeholder="Email"
                                 required
@@ -134,14 +211,15 @@ export default class FormAddCustomer extends Component {
                                 value={this.state.email}
                                 onChange={this.handleText}
                             />
+                            <div class="invalid-feedback">{this.state.errorMessage.email}</div>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label">Phone number</label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10 input-group">
                             <input
                                 type="text"
-                                className="form-control"
+                                className={!this.state.error.phone ? "form-control" : "form-control is-invalid"}
                                 id="inputPassword"
                                 placeholder="Phone number"
                                 required
@@ -149,14 +227,15 @@ export default class FormAddCustomer extends Component {
                                 value={this.state.phone}
                                 onChange={this.handleText}
                             />
+                            <div class="invalid-feedback">{this.state.errorMessage.phone}</div>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label">Address</label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10 input-group">
                             <input
                                 type="text"
-                                className="form-control"
+                                className={!this.state.error.adress ? "form-control" : "form-control is-invalid"}
                                 id="inputPassword"
                                 placeholder="Address"
                                 required
@@ -164,14 +243,15 @@ export default class FormAddCustomer extends Component {
                                 value={this.state.adress}
                                 onChange={this.handleText}
                             />
+                            <div class="invalid-feedback">{this.state.errorMessage.adress}</div>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label">Gender</label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10 input-group">
                             <input
                                 type="text"
-                                className="form-control"
+                                className={!this.state.error.gender ? "form-control" : "form-control is-invalid"}
                                 id="inputPassword"
                                 placeholder="Gender"
                                 required
@@ -179,6 +259,7 @@ export default class FormAddCustomer extends Component {
                                 value={this.state.gender}
                                 onChange={this.handleText}
                             />
+                            <div class="invalid-feedback">{this.state.errorMessage.gender}</div>
                         </div>
                     </div>
                     <div className="form-group row">

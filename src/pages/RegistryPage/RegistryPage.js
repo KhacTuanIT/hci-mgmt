@@ -12,7 +12,17 @@ export class RegistryPage extends Component {
         this.state = {
             username: '',
             email: '',
-            password: ''
+            password: '',
+            error: {
+                username: false,
+                email: false,
+                password: false,
+            },
+            errorMessage: {
+                username: '',
+                email: '',
+                password: '',
+            }
         }
     }
 
@@ -31,29 +41,63 @@ export class RegistryPage extends Component {
             Accept: 'application/json',
             'Content-Type': 'application/json'
         }
-
-        try {
-            axios({
-                method: 'POST',
-                url: `${API.API_URL_2}admins`,
-                headers,
-                data: {
-                    name: this.state.username,
-                    email: this.state.email,
-                    password: this.state.password
-                }
-            }).then(response => {
-                console.log(response)
-                if (response.status === 201) {
-                    toast("Create successfully !");
-                } else {
-                    toast("Create failure !");
+        if (this.state.username !== '' && this.state.email !== '' && this.state.password !== '') {
+            try {
+                axios({
+                    method: 'POST',
+                    url: `${API.API_URL_2}admins`,
+                    headers,
+                    data: {
+                        name: this.state.username,
+                        email: this.state.email,
+                        password: this.state.password
+                    }
+                }).then(response => {
+                    console.log(response)
+                    if (response.status === 201) {
+                        toast("Create successfully !");
+                    } else {
+                        toast("Create failure !");
+                    }
+                })
+    
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        else {
+            let u = false
+            let e = false
+            let p = false
+            if (this.state.username === '') {
+                u = true
+            }
+            if (this.state.email === '') {
+                e = true
+            }
+            if (this.state.password === '') {
+                p = true
+            }
+            this.setState({
+                error: {
+                    username: u,
+                    email: e,
+                    password: p
                 }
             })
-
-        } catch (error) {
-            console.log(error)
+            
+            setTimeout(() => this.resetAllError(), 3000)
         }
+    }
+
+    resetAllError = () => {
+        this.setState({
+            error: {
+                username: false,
+                email: false,
+                password: false,
+            }
+        })
     }
 
     render() {
@@ -62,12 +106,12 @@ export class RegistryPage extends Component {
             <ToastContainer />
                 <div className="login_wrapper">
                     <div className="animate form login_form">
-                        <section className="login_content">
+                        <section class="login_content">
                             <h1>Create Account</h1>
                             <div>
                                 <input
                                     type="text"
-                                    className="form-control"
+                                    className={!this.state.error.username ? "form-control" : "form-control is-invalid"}
                                     placeholder="Username"
                                     required=""
                                     name="username"
@@ -78,7 +122,7 @@ export class RegistryPage extends Component {
                             <div>
                                 <input
                                     type="email"
-                                    className="form-control"
+                                    className={!this.state.error.email ? "form-control" : "form-control is-invalid"}
                                     placeholder="Email"
                                     required=""
                                     name="email"
@@ -89,7 +133,7 @@ export class RegistryPage extends Component {
                             <div>
                                 <input
                                     type="password"
-                                    className="form-control"
+                                    className={!this.state.error.password ? "form-control" : "form-control is-invalid"}
                                     placeholder="Password"
                                     required=""
                                     name="password"

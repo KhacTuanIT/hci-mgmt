@@ -11,7 +11,11 @@ export class LoginPage extends Component {
         this.state = {
             email: '',
             password: '',
-            isLogin: false
+            isLogin: false,
+            error: {
+                email: false,
+                password: false,
+            },
         }
     }
 
@@ -35,31 +39,58 @@ export class LoginPage extends Component {
             Accept: 'application/json',
             'Content-Type': 'application/json'
         }
+        if (this.state.email !== '' && this.state.password !== '') {
+            try {
+                axios({
+                    method: 'GET',
+                    url: `${API.API_URL_2}admins`,
+                    headers
+                }).then(response => {
+                    console.log(response)
+                    let c = 0
+                    if (response.status === 200) {
+                        response.data.forEach(element => {
+                            if (element.email === this.state.email && element.password === this.state.password) {
+                                console.log("done")
+                                localStorage.setItem('token', element.id)
+                                this.setState({isLogin: true})
+                                c++
+                            }
+                        });
+                    } 
+                    if (c === 0) toast("Username/password wrong !");
+                })
 
-        try {
-            axios({
-                method: 'GET',
-                url: `${API.API_URL_2}admins`,
-                headers
-            }).then(response => {
-                console.log(response)
-                let c = 0
-                if (response.status === 200) {
-                    response.data.forEach(element => {
-                        if (element.email === this.state.email && element.password === this.state.password) {
-                            console.log("done")
-                            localStorage.setItem('token', element.id)
-                            this.setState({isLogin: true})
-                            c++
-                        }
-                    });
-                } 
-                if (c === 0) toast("Username/password wrong !");
-            })
-
-        } catch (error) {
-            console.log(error)
+            } catch (error) {
+                console.log(error)
+            }
         }
+        else {
+            let e = false
+            let p = false
+            if (this.state.email === '') {
+                e = true
+            }
+            if (this.state.password === '') {
+                p = true
+            }
+            this.setState({
+                error: {
+                    email: e,
+                    password: p
+                }
+            })
+            setTimeout(() => this.resetAllError(), 3000)
+        }
+    }
+
+    resetAllError = () => {
+        this.setState({
+            error: {
+                email: false,
+                password: false,
+            }
+        })
     }
 
     render() {
@@ -69,12 +100,12 @@ export class LoginPage extends Component {
                 <ToastContainer />
                 <div className="login_wrapper">
                     <div className="animate form login_form">
-                    <section className="login_content">
+                    <section class='login_content'>
                         <h1>Login</h1>
                         <div>
                             <input 
                                 type="text" 
-                                className="form-control" 
+                                className={!this.state.error.email ? "form-control" : "form-control is-invalid"}
                                 placeholder="Email" 
                                 required="" 
                                 name="email"
@@ -85,7 +116,7 @@ export class LoginPage extends Component {
                         <div>
                             <input 
                                 type="password" 
-                                className="form-control" 
+                                className={!this.state.error.password ? "form-control" : "form-control is-invalid"}
                                 placeholder="Password" 
                                 required="" 
                                 name="password"

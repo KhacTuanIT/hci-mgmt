@@ -16,7 +16,21 @@ export default class FormAddVocabulary extends Component {
             mean: '',
             pronunciation: '',
             exampleMean: '',
-            id: ''
+            id: '',
+            error: {
+                word: false,
+                example: false,
+                mean: false,
+                pronunciation: false,
+                exampleMean: false
+            },
+            errorMessage: {
+                word: '',
+                example: '',
+                mean: '',
+                pronunciation: '',
+                exampleMean: ''
+            }
         }
     }
 
@@ -101,37 +115,97 @@ export default class FormAddVocabulary extends Component {
             Accept: 'application/json',
             'Content-Type': 'application/json'
         }
-        
+        if (this.state.word !== '' && this.state.mean !== '' && this.state.example !== '' && this.state.exampleMean !== '' && this.state.pronunciation !== '') {
 
-        const data = {
-            word: this.state.word,
-            mean: this.state.mean,
-            example: this.state.example,
-            example_mean: this.state.exampleMean,
-            pronunciation: this.state.pronunciation,
-            topics: this.state.chooseTopics,
-            image: this.state.image
+            const data = {
+                word: this.state.word,
+                mean: this.state.mean,
+                example: this.state.example,
+                example_mean: this.state.exampleMean,
+                pronunciation: this.state.pronunciation,
+                topics: this.state.chooseTopics,
+                image: this.state.image
+            }
+            if (this.state.id !== '') data.id = this.state.id
+            console.log(this.state)
+
+            try {
+                axios({
+                    method: this.state.id !== '' ? 'PUT' : 'POST',
+                    url: this.state.id !== '' ? `${API.API_URL}Vocabularies/${this.state.id}` : `${API.API_URL}Vocabularies`,
+                    headers,
+                    data
+                }).then(response => {
+                    if (response.status === 201 || response.status === 200) {
+                        toast(this.state.id !== '' ? "Update successfully !" : "Create successfully !");
+                    } else {
+                        toast(this.state.id !== '' ? "Update fail !" : "Create fail !");
+                    }
+                })
+
+            } catch (error) {
+                console.log(error)
+            }
         }
-        if (this.state.id !== '') data.id = this.state.id
-        console.log(this.state)
-
-        try {
-            axios({
-                method: this.state.id !== '' ? 'PUT' : 'POST',
-                url: this.state.id !== '' ? `${API.API_URL}Vocabularies/${this.state.id}` : `${API.API_URL}Vocabularies`,
-                headers,
-                data
-            }).then(response => {
-                if (response.status === 201 || response.status === 200) {
-                    toast(this.state.id !== '' ? "Update successfully !" : "Create successfully !");
-                } else {
-                    toast(this.state.id !== '' ? "Update fail !" : "Create fail !");
+        else {
+            let w = false
+            let m = false
+            let p = false
+            let e = false
+            let em = false
+            if (this.state.word === '') {
+                w = true
+            }
+            if (this.state.mean === '') {
+                m = true
+            }
+            if (this.state.pronunciation === '') {
+                p = true
+            }
+            if (this.state.example === '') {
+                e = true
+            }
+            if (this.state.exampleMean === '') {
+                em = true
+            }
+            this.setState({
+                error: {
+                    word: w,
+                    example: e,
+                    mean: m,
+                    pronunciation: p,
+                    exampleMean: em
+                },
+                errorMessage: {
+                    word: w ? 'Word field is required!' : '',
+                    example: e ? 'Example field is required!' : '',
+                    mean: m ? 'Mean field is required!' : '',
+                    pronunciation: p ? 'Pronounciation field is required!' : '',
+                    exampleMean: em ? 'Example mean field is required!' : ''
                 }
             })
-
-        } catch (error) {
-            console.log(error)
+            
+            setTimeout(() => this.resetAllError(), 3000)
         }
+    }
+
+    resetAllError = () => {
+        this.setState({
+            error: {
+                word: false,
+                example: false,
+                mean: false,
+                pronunciation: false,
+                exampleMean: false
+            },
+            errorMessage: {
+                word: '',
+                example: '',
+                mean: '',
+                pronunciation: '',
+                exampleMean: ''
+            }
+        })
     }
 
     render() {
@@ -140,13 +214,15 @@ export default class FormAddVocabulary extends Component {
         return (
             <div>
                 <ToastContainer />
-                <form>
+                <form
+                    class={!this.state.error.word || !this.state.error.mean || !this.state.error.example || !this.state.error.exampleMean || !this.state.error.pronunciation  ? null : "was-validated"}
+                >
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label">Word</label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10 input-group">
                             <input
                                 type="text"
-                                className="form-control"
+                                className={!this.state.error.word ? "form-control" : "form-control is-invalid"}
                                 id="inputPassword"
                                 placeholder="Word"
                                 required
@@ -154,14 +230,15 @@ export default class FormAddVocabulary extends Component {
                                 value={this.state.word}
                                 onChange={this.handleText}
                             />
+                            <div class="invalid-feedback">{this.state.errorMessage.word}</div>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label">Mean</label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10 input-group">
                             <input
                                 type="text"
-                                className="form-control"
+                                className={!this.state.error.mean ? "form-control" : "form-control is-invalid"}
                                 id="inputPassword"
                                 placeholder="Mean"
                                 required
@@ -169,14 +246,15 @@ export default class FormAddVocabulary extends Component {
                                 value={this.state.mean}
                                 onChange={this.handleText}
                             />
+                            <div class="invalid-feedback">{this.state.errorMessage.mean}</div>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label">Example</label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10 input-group">
                             <input
                                 type="text"
-                                className="form-control"
+                                className={!this.state.error.example ? "form-control" : "form-control is-invalid"}
                                 id="inputPassword"
                                 placeholder="Example"
                                 required
@@ -184,35 +262,37 @@ export default class FormAddVocabulary extends Component {
                                 value={this.state.example}
                                 onChange={this.handleText}
                             />
+                            <div class="invalid-feedback">{this.state.errorMessage.example}</div>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label">Example Mean</label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10 input-group">
                             <input
                                 type="text"
-                                className="form-control"
+                                className={!this.state.error.exampleMean ? "form-control" : "form-control is-invalid"}
                                 placeholder="Example mean"
                                 required
                                 name="exampleMean"
                                 value={this.state.exampleMean}
                                 onChange={this.handleText}
                             />
+                            <div class="invalid-feedback">{this.state.errorMessage.exampleMean}</div>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label">Pronouciation</label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10 input-group">
                             <input
                                 type="text"
-                                className="form-control"
+                                className={!this.state.error.pronunciation ? "form-control" : "form-control is-invalid"}
                                 placeholder="Pronounciation"
                                 required
                                 name="pronunciation"
                                 value={this.state.pronunciation}
                                 onChange={this.handleText}
                             />
-
+                            <div class="invalid-feedback">{this.state.errorMessage.pronunciation}</div>
                         </div>
                     </div>
                     <div className="form-group row">

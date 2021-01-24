@@ -13,7 +13,13 @@ export default class FormAddTopic extends Component {
             image: '',
             packages: [],
             choosePackage: '1',
-            id: ''
+            id: '',
+            error: {
+                name: false
+            },
+            errorMessage: {
+                name: ''
+            }
         }
     }
 
@@ -95,32 +101,58 @@ export default class FormAddTopic extends Component {
             'Content-Type': 'application/json'
         }
         
+        if (this.state.name !== '') {
+            
+            const data = {
+                name: this.state.name,
+                image: this.state.image,
+                packages: this.state.choosePackage
+            }
+            if (this.state.id !== '') data.id = this.state.id
+            console.log(this.state)
 
-        const data = {
-            name: this.state.name,
-            image: this.state.image,
-            packages: this.state.choosePackage
+            try {
+                axios({
+                    method: this.state.id !== '' ? 'PUT' : 'POST',
+                    url: this.state.id !== '' ? `${API.API_URL}Topics/${this.state.id}` : `${API.API_URL}Topics`,
+                    headers,
+                    data
+                }).then(response => {
+                    if (response.status === 201 || response.status === 200) {
+                        toast(this.state.id !== '' ? "Update successfully !" : "Create successfully !");
+                    } else {
+                        toast(this.state.id !== '' ? "Update fail !" : "Create fail !");
+                    }
+                })
+
+            } catch (error) {
+                console.log(error)
+            }
         }
-        if (this.state.id !== '') data.id = this.state.id
-        console.log(this.state)
-
-        try {
-            axios({
-                method: this.state.id !== '' ? 'PUT' : 'POST',
-                url: this.state.id !== '' ? `${API.API_URL}Topics/${this.state.id}` : `${API.API_URL}Topics`,
-                headers,
-                data
-            }).then(response => {
-                if (response.status === 201 || response.status === 200) {
-                    toast(this.state.id !== '' ? "Update successfully !" : "Create successfully !");
-                } else {
-                    toast(this.state.id !== '' ? "Update fail !" : "Create fail !");
+        else {
+            console.log("err")
+            this.setState({
+                error: {
+                    name: true
+                },
+                errorMessage: {
+                    name: 'Package name is required!'
                 }
             })
-
-        } catch (error) {
-            console.log(error)
+            setTimeout(() => this.resetAllError(), 3000)
         }
+    }
+
+    resetAllError = () => {
+        console.log('clear')
+        this.setState({
+            error: {
+                name: false
+            },
+            errorMessage: {
+                name: ''
+            }
+        })
     }
 
     render() {
@@ -129,13 +161,13 @@ export default class FormAddTopic extends Component {
         return (
             <div>
                 <ToastContainer />
-                <form>
+                <form class={!this.state.error.name ? null : "was-validated"}>
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label">Name</label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10 input-group">
                             <input
                                 type="text"
-                                className="form-control"
+                                className={!this.state.error.name ? "form-control" : "form-control is-invalid"}
                                 id="inputPassword"
                                 placeholder="Name"
                                 required
@@ -143,6 +175,7 @@ export default class FormAddTopic extends Component {
                                 value={this.state.name}
                                 onChange={this.handleText}
                             />
+                            <div class="invalid-feedback">{this.state.errorMessage.name}</div>
                         </div>
                     </div>
                     <div className="form-group row">
